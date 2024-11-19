@@ -14,7 +14,7 @@
         <a class="navbar-brand" href="{{ url_for('dashboard') }}">
             <!-- Logo -->
             <img src="{{ url_for('static', filename='images/logo.jpg') }}" width="30" height="30" alt="">
-            Bank of Kigali
+            Your Bank
         </a>
         <!-- Toggle button for mobile view -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
@@ -27,14 +27,14 @@
                 <li class="nav-item {% if request.path == url_for('dashboard') %}active{% endif %}">
                     <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
                 </li>
-                <li class="nav-item {% if request.path == url_for('customers') %}active{% endif %}">
-                    <a class="nav-link" href="{{ url_for('customers') }}">Customers</a>
+                <li class="nav-item {% if request.path == url_for('customers.customers') %}active{% endif %}">
+                    <a class="nav-link" href="{{ url_for('customers.customers') }}">Customers</a>
                 </li>
-                <li class="nav-item {% if request.path == url_for('configurations') %}active{% endif %}">
-                    <a class="nav-link" href="{{ url_for('configurations') }}">Configurations</a>
+                <li class="nav-item {% if request.path == url_for('configurations.configurations') %}active{% endif %}">
+                    <a class="nav-link" href="{{ url_for('configurations.configurations') }}">Configurations</a>
                 </li>
-                <li class="nav-item {% if request.path == url_for('failed_emails') %}active{% endif %}">
-                    <a class="nav-link" href="{{ url_for('failed_emails') }}">Failed Emails</a>
+                <li class="nav-item {% if request.path == url_for('failed_emails.failed_emails') %}active{% endif %}">
+                    <a class="nav-link" href="{{ url_for('failed_emails.failed_emails') }}">Failed Emails</a>
                 </li>
             </ul>
             <!-- Bank Statement Email Sender Text -->

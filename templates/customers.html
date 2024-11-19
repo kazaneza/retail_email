@@ -2,14 +2,14 @@
 {% block content %}
 <h2>Customers</h2>
 <!-- Search and Sort Form -->
-<form method="get" action="{{ url_for('customers') }}" class="form-inline mb-3">
+<form method="get" action="{{ url_for('customers.customers') }}" class="form-inline mb-3">
     <input type="text" name="search" value="{{ search }}" class="form-control mr-sm-2" placeholder="Search">
     <select name="sort_by" class="form-control mr-sm-2">
         <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
         <option value="status" {% if sort_by == 'status' %}selected{% endif %}>Status</option>
     </select>
     <button type="submit" class="btn btn-outline-success">Search</button>
-    <!-- Download Failed Button -->
+    <!-- Download Failed Button (Optional) -->
     <a href="#" class="btn btn-secondary ml-2">Download Failed</a> <!-- Adjust the link as needed -->
 </form>
 <!-- Customers Table -->
@@ -43,7 +43,7 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{{ url_for('edit_customer', id=customer.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ url_for('customers.edit_customer', id=customer.id) }}" class="btn btn-sm btn-primary">Edit</a>
             </td>
         </tr>
         {% else %}

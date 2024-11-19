@@ -35,6 +35,6 @@
     <h3>Email Settings</h3>
     <p>Email Sending is currently: <strong>{{ 'Paused' if paused else 'Active' }}</strong></p>
     <p>Emails per Batch: <strong>{{ batch_size }}</strong></p>
-    <a href="{{ url_for('email_settings') }}" class="btn btn-primary">Update Email Settings</a>
+    <a href="{{ url_for('email_settings.email_settings') }}" class="btn btn-primary">Update Email Settings</a>
 </div>
 {% endblock %}

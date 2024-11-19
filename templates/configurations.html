@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Database Configurations</h2>
-<a href="{{ url_for('add_configuration') }}" class="btn btn-primary mb-3">Add Configuration</a>
+<a href="{{ url_for('configurations.add_configuration') }}" class="btn btn-primary mb-3">Add Configuration</a>
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
         <tr>
@@ -22,8 +22,8 @@
             <td>{{ config.table_name }}</td>
             <td>{{ config.authentication_method }}</td>
             <td>
-                <a href="{{ url_for('edit_configuration', id=config.id) }}" class="btn btn-sm btn-primary">Edit</a>
-                <a href="{{ url_for('delete_configuration', id=config.id) }}" class="btn btn-sm btn-danger">Delete</a>
+                <a href="{{ url_for('configurations.edit_configuration', id=config.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ url_for('configurations.delete_configuration', id=config.id) }}" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
         {% else %}
