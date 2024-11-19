@@ -1,3 +1,5 @@
+<!-- templates/customers.html -->
+
 {% extends "base.html" %}
 {% block content %}
 <h2>Customers</h2>
@@ -29,21 +31,21 @@
         {% for customer in customers %}
         <tr>
             <td>{{ customer.customer_id }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.email }}</td>
-            <td>{{ customer.phone }}</td>
+            <td>{{ customer.short_name }}</td>
+            <td>{{ customer.sms_d_1 }}</td>
+            <td>{{ customer.email_d_1 }}</td>
             <td>{{ customer.account }}</td>
             <td>
-                {% if customer.status == 'Sent' %}
-                    <span class="badge badge-success">{{ customer.status }}</span>
-                {% elif customer.status == 'Failed' %}
-                    <span class="badge badge-danger">{{ customer.status }}</span>
+                {% if customer.status == 2 %}
+                    <span class="badge badge-success">Sent</span>
+                {% elif customer.status == 3 %}
+                    <span class="badge badge-danger">Failed</span>
                 {% else %}
-                    <span class="badge badge-secondary">{{ customer.status }}</span>
+                    <span class="badge badge-secondary">Not Yet</span>
                 {% endif %}
             </td>
             <td>
-                <a href="{{ url_for('customers.edit_customer', id=customer.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ url_for('customers.edit_customer', id=customer.recid) }}" class="btn btn-sm btn-primary">Edit</a>
             </td>
         </tr>
         {% else %}
