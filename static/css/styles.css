@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* Ensure the body content doesn't hide behind the navbar */
+body {
+    padding-top: 70px;
+}
+
+/* Adjust the navbar brand logo */
+.navbar-brand img {
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+/* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Table Styling */
+.table th, .table td {
+    vertical-align: middle;
+}
+
+/* Badge Font Size */
+.badge {
+    font-size: 100%;
+}
+
+/* Card Title Font Size */
+.card-title {
+    font-size: 2rem;
+}
+
+/* Alert Close Button Position */
+.alert-dismissible .close {
+    position: relative;
+    top: -2px;
+    right: -21px;
+    color: inherit;
+}

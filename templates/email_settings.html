@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Email Settings</h2>
+<form method="post">
+    <!-- Emails per Batch -->
+    <div class="form-group">
+        <label for="batch_size">Emails per Batch</label>
+        <input type="number" name="batch_size" value="{{ batch_size }}" class="form-control" min="1">
+    </div>
+    <!-- Pause Email Sending -->
+    <div class="form-group form-check">
+        <input type="checkbox" name="pause" class="form-check-input" id="pause" {% if paused %}checked{% endif %}>
+        <label class="form-check-label" for="pause">Pause Email Sending</label>
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

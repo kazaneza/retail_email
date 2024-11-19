@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Customers</h2>
+<!-- Search and Sort Form -->
+<form method="get" action="{{ url_for('customers') }}" class="form-inline mb-3">
+    <input type="text" name="search" value="{{ search }}" class="form-control mr-sm-2" placeholder="Search">
+    <select name="sort_by" class="form-control mr-sm-2">
+        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+        <option value="status" {% if sort_by == 'status' %}selected{% endif %}>Status</option>
+    </select>
+    <button type="submit" class="btn btn-outline-success">Search</button>
+    <!-- Download Failed Button -->
+    <a href="#" class="btn btn-secondary ml-2">Download Failed</a> <!-- Adjust the link as needed -->
+</form>
+<!-- Customers Table -->
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Customer ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Account</th>
+            <th>Status</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.customer_id }}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.account }}</td>
+            <td>
+                {% if customer.status == 'Sent' %}
+                    <span class="badge badge-success">{{ customer.status }}</span>
+                {% elif customer.status == 'Failed' %}
+                    <span class="badge badge-danger">{{ customer.status }}</span>
+                {% else %}
+                    <span class="badge badge-secondary">{{ customer.status }}</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('edit_customer', id=customer.id) }}" class="btn btn-sm btn-primary">Edit</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7" class="text-center">No customers found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

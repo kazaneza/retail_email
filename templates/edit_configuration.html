@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ action }} Configuration</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <!-- Configuration Name -->
+    <div class="form-group">
+        {{ form.name.label(class="form-control-label") }}
+        {{ form.name(class="form-control") }}
+        {% for error in form.name.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Instance -->
+    <div class="form-group">
+        {{ form.instance.label(class="form-control-label") }}
+        {{ form.instance(class="form-control") }}
+        {% for error in form.instance.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Database Name -->
+    <div class="form-group">
+        {{ form.database_name.label(class="form-control-label") }}
+        {{ form.database_name(class="form-control") }}
+        {% for error in form.database_name.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Authentication Method -->
+    <div class="form-group">
+        {{ form.authentication_method.label(class="form-control-label") }}
+        {{ form.authentication_method(class="form-control") }}
+        {% for error in form.authentication_method.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Username (Only for SQL Authentication) -->
+    {% if form.authentication_method.data == 'SQL' %}
+    <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+        {{ form.username(class="form-control") }}
+        {% for error in form.username.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Password (Only for SQL Authentication) -->
+    <div class="form-group">
+        {{ form.password.label(class="form-control-label") }}
+        {{ form.password(class="form-control") }}
+        {% for error in form.password.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Table Name -->
+    <div class="form-group">
+        {{ form.table_name.label(class="form-control-label") }}
+        {{ form.table_name(class="form-control") }}
+        {% for error in form.table_name.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <!-- Submit and Cancel Buttons -->
+    {{ form.submit(class="btn btn-primary") }}
+    <a href="{{ url_for('configurations') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Failed Emails</h2>
+<!-- Download as JSON Button -->
+<a href="{{ url_for('download_failed_json') }}" class="btn btn-secondary mb-3">Download as JSON</a>
+<!-- Failed Emails Table -->
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Customer ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Failure Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fail in failed_list %}
+        <tr>
+            <td>{{ fail.customer_id }}</td>
+            <td>{{ fail.name }}</td>
+            <td>{{ fail.phone }}</td>
+            <td>{{ fail.failure_reason }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">No failed emails found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
