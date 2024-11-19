@@ -2,6 +2,6 @@
 
 from flask import Blueprint
 
-failed_emails_bp = Blueprint('failed_emails', __name__, template_folder='../../templates')
+failed_emails_bp = Blueprint('failed_emails', __name__, template_folder='templates')
 
 from . import routes

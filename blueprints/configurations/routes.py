@@ -1,6 +1,9 @@
+# blueprints/configurations/routes.py
+
 from flask import render_template, request, redirect, url_for, flash
 from . import configurations_bp
 from .forms import ConfigurationForm
+from models import db, Customer
 from blueprints.utils.db_utils import get_db_connection
 import json
 import os
@@ -13,12 +16,7 @@ def read_config_file():
         with open(CONFIG_FILE, 'w') as f:
             json.dump({
                 "configurations": [],
-                "email_settings": {"paused": False, "batch_size": 50},
-                "sample_data": {
-                    "customers": [],
-                    "failed_emails": [],
-                    "dashboard_stats": {"remaining": 0, "sent": 0, "failed": 0}
-                }
+                "email_settings": {"paused": False, "batch_size": 50}
             }, f, indent=4)
     with open(CONFIG_FILE, 'r') as f:
         try:
@@ -27,12 +25,7 @@ def read_config_file():
             # If JSON is invalid, re-initialize with default data
             data = {
                 "configurations": [],
-                "email_settings": {"paused": False, "batch_size": 50},
-                "sample_data": {
-                    "customers": [],
-                    "failed_emails": [],
-                    "dashboard_stats": {"remaining": 0, "sent": 0, "failed": 0}
-                }
+                "email_settings": {"paused": False, "batch_size": 50}
             }
             with open(CONFIG_FILE, 'w') as f:
                 json.dump(data, f, indent=4)
@@ -42,13 +35,13 @@ def write_config_file(data):
     with open(CONFIG_FILE, 'w') as f:
         json.dump(data, f, indent=4)
 
-@configurations_bp.route('/configurations')
+@configurations_bp.route('/', methods=['GET'])
 def list_configurations():
     data = read_config_file()
     configs = data.get('configurations', [])
     return render_template('configurations.html', configs=configs)
 
-@configurations_bp.route('/add_configuration', methods=['GET', 'POST'])
+@configurations_bp.route('/add', methods=['GET', 'POST'])
 def add_configuration():
     form = ConfigurationForm()
     if form.validate_on_submit():
@@ -84,7 +77,7 @@ def add_configuration():
         return redirect(url_for('configurations.list_configurations'))
     return render_template('edit_configuration.html', form=form, action='Add')
 
-@configurations_bp.route('/edit_configuration/<int:id>', methods=['GET', 'POST'])
+@configurations_bp.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_configuration(id):
     form = ConfigurationForm()
     data = read_config_file()
@@ -119,7 +112,7 @@ def edit_configuration(id):
 
     return render_template('edit_configuration.html', form=form, action='Edit')
 
-@configurations_bp.route('/delete_configuration/<int:id>')
+@configurations_bp.route('/delete/<int:id>', methods=['GET'])
 def delete_configuration(id):
     data = read_config_file()
     configs = data.get('configurations', [])
@@ -133,6 +126,7 @@ def delete_configuration(id):
 def fetch_customers():
     data = read_config_file()
     configs = data.get('configurations', [])
+
     if not configs:
         flash('No database configurations available. Please add a configuration first.', 'danger')
         return redirect(url_for('configurations.list_configurations'))
@@ -153,31 +147,31 @@ def fetch_customers():
         cursor.execute(query)
         rows = cursor.fetchall()
         
-        # Map SQL data to application data model
-        customers = []
         for row in rows:
-            customer = {
-                'id': row[0],  # Assuming 'recid' is unique and used as ID
-                'customer_id': str(row[4]) if row[4] else '',
-                'name': row[1] if row[1] else '',
-                'email': row[3] if row[3] else '',
-                'phone': row[2] if row[2] else '',
-                'account': str(row[0]),
-                'status': 'Not Yet'
-            }
-            customers.append(customer)
+            customer = Customer.query.get(row[0])
+            if customer:
+                # Update existing customer
+                customer.short_name = row[1] or ''
+                customer.sms_d_1 = row[2] or ''
+                customer.email_d_1 = row[3] or ''
+                customer.customer_id = row[4] or ''
+                customer.status = 1  # Not Yet
+            else:
+                # Add new customer
+                new_customer = Customer(
+                    recid=row[0],
+                    short_name=row[1] or '',
+                    sms_d_1=row[2] or '',
+                    email_d_1=row[3] or '',
+                    customer_id=row[4] or '',
+                    status=1  # Not Yet
+                )
+                db.session.add(new_customer)
         
-        # Update sample_data in config.json
-        data['sample_data']['customers'] = customers
-        
-        # Update dashboard_stats
-        data['sample_data']['dashboard_stats']['remaining'] = len([c for c in customers if c['status'] == 'Not Yet'])
-        data['sample_data']['dashboard_stats']['sent'] = len([c for c in customers if c['status'] == 'Sent'])
-        data['sample_data']['dashboard_stats']['failed'] = len([c for c in customers if c['status'] == 'Failed'])
-        
-        write_config_file(data)
-        flash(f'Successfully fetched and updated {len(customers)} customers.', 'success')
+        db.session.commit()
+        flash(f'Successfully fetched and updated {len(rows)} customers.', 'success')
     except Exception as e:
+        db.session.rollback()
         flash(f'An error occurred while fetching customers: {e}', 'danger')
     finally:
         connection.close()
