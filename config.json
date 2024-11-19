@@ -2,7 +2,7 @@
     "configurations": [
         {
             "id": 1,
-            "name": "RETAIL CUSTOMERS",
+            "name": "datawarehouse",
             "instance": "P-TN-STGNG-DB01\\MSSQL2022",
             "database_name": "RETAIL_CUSTOMERS",
             "authentication_method": "Windows",
@@ -15,5 +15,4 @@
         "paused": false,
         "batch_size": 50
     }
-    
 }
