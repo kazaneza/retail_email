@@ -1,8 +1,7 @@
-# blueprints/configurations/routes.py
-
 from flask import render_template, request, redirect, url_for, flash
 from . import configurations_bp
 from .forms import ConfigurationForm
+from blueprints.utils.db_utils import get_db_connection
 import json
 import os
 
@@ -44,7 +43,7 @@ def write_config_file(data):
         json.dump(data, f, indent=4)
 
 @configurations_bp.route('/configurations')
-def configurations():
+def list_configurations():
     data = read_config_file()
     configs = data.get('configurations', [])
     return render_template('configurations.html', configs=configs)
@@ -82,7 +81,7 @@ def add_configuration():
         data['configurations'] = configs
         write_config_file(data)
         flash('Configuration added successfully', 'success')
-        return redirect(url_for('configurations.configurations'))
+        return redirect(url_for('configurations.list_configurations'))
     return render_template('edit_configuration.html', form=form, action='Add')
 
 @configurations_bp.route('/edit_configuration/<int:id>', methods=['GET', 'POST'])
@@ -94,7 +93,7 @@ def edit_configuration(id):
 
     if not config:
         flash('Configuration not found', 'danger')
-        return redirect(url_for('configurations.configurations'))
+        return redirect(url_for('configurations.list_configurations'))
 
     if request.method == 'GET':
         form.name.data = config['name']
@@ -116,7 +115,7 @@ def edit_configuration(id):
 
         write_config_file(data)
         flash('Configuration updated successfully', 'success')
-        return redirect(url_for('configurations.configurations'))
+        return redirect(url_for('configurations.list_configurations'))
 
     return render_template('edit_configuration.html', form=form, action='Edit')
 
@@ -128,4 +127,59 @@ def delete_configuration(id):
     data['configurations'] = configs
     write_config_file(data)
     flash('Configuration deleted', 'info')
-    return redirect(url_for('configurations.configurations'))
+    return redirect(url_for('configurations.list_configurations'))
+
+@configurations_bp.route('/fetch_customers', methods=['POST'])
+def fetch_customers():
+    data = read_config_file()
+    configs = data.get('configurations', [])
+    if not configs:
+        flash('No database configurations available. Please add a configuration first.', 'danger')
+        return redirect(url_for('configurations.list_configurations'))
+    
+    # For simplicity, use the first configuration
+    config = configs[0]
+    connection = get_db_connection(config)
+    
+    if not connection:
+        flash('Failed to connect to the database. Please check your configuration.', 'danger')
+        return redirect(url_for('configurations.list_configurations'))
+    
+    table_name = config.get('table_name', 'customers')
+    
+    try:
+        cursor = connection.cursor()
+        query = f"SELECT [recid], [short_name], [sms_d_1], [email_d_1], [customer_id] FROM {table_name}"
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        
+        # Map SQL data to application data model
+        customers = []
+        for row in rows:
+            customer = {
+                'id': row[0],  # Assuming 'recid' is unique and used as ID
+                'customer_id': str(row[4]) if row[4] else '',
+                'name': row[1] if row[1] else '',
+                'email': row[3] if row[3] else '',
+                'phone': row[2] if row[2] else '',
+                'account': str(row[0]),
+                'status': 'Not Yet'
+            }
+            customers.append(customer)
+        
+        # Update sample_data in config.json
+        data['sample_data']['customers'] = customers
+        
+        # Update dashboard_stats
+        data['sample_data']['dashboard_stats']['remaining'] = len([c for c in customers if c['status'] == 'Not Yet'])
+        data['sample_data']['dashboard_stats']['sent'] = len([c for c in customers if c['status'] == 'Sent'])
+        data['sample_data']['dashboard_stats']['failed'] = len([c for c in customers if c['status'] == 'Failed'])
+        
+        write_config_file(data)
+        flash(f'Successfully fetched and updated {len(customers)} customers.', 'success')
+    except Exception as e:
+        flash(f'An error occurred while fetching customers: {e}', 'danger')
+    finally:
+        connection.close()
+    
+    return redirect(url_for('configurations.list_configurations'))

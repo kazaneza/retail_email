@@ -2,6 +2,12 @@
 {% block content %}
 <h2>Database Configurations</h2>
 <a href="{{ url_for('configurations.add_configuration') }}" class="btn btn-primary mb-3">Add Configuration</a>
+
+<!-- Fetch Customers Button -->
+<form action="{{ url_for('configurations.fetch_customers') }}" method="post" style="display: inline;">
+    <button type="submit" class="btn btn-success mb-3">Fetch Customers from Database</button>
+</form>
+
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
         <tr>

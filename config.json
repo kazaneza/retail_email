@@ -1,14 +1,926 @@
 {
-    "configurations": [],
+    "configurations": [
+        {
+            "id": 1,
+            "name": "RETAIL CUSTOMERS",
+            "instance": "P-TN-STGNG-DB01\\MSSQL2022",
+            "database_name": "RETAIL_CUSTOMERS",
+            "authentication_method": "Windows",
+            "username": null,
+            "password": null,
+            "table_name": "RETAIL_CUSTOMERS"
+        }
+    ],
     "email_settings": {
         "paused": false,
-        "batch_size": 100
+        "batch_size": 50
     },
     "sample_data": {
-        "customers": [],
+        "customers": [
+            {
+                "id": 10,
+                "customer_id": "100",
+                "name": "JEAN BOSCO MAZURU",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "10",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000099,
+                "customer_id": "101",
+                "name": "HALKIA IRADUKUNDA",
+                "email": "halkiairadukunda12@gmail.com",
+                "phone": "2.5079e+011",
+                "account": "100000099",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000100,
+                "customer_id": "102",
+                "name": "JEAN CLAUDE HABUMUGISHA",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000100",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000101,
+                "customer_id": "103",
+                "name": "YASSIN YASSIN",
+                "email": "niyonshutiyasine@gmail.com",
+                "phone": "2.50795e+011",
+                "account": "100000101",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000103,
+                "customer_id": "104",
+                "name": "JULIENNE MUTUYIMANA",
+                "email": "",
+                "phone": "2.50784e+011",
+                "account": "100000103",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000104,
+                "customer_id": "105",
+                "name": "EMMANUEL NDAYAMBAJE",
+                "email": "",
+                "phone": "2.50786e+011",
+                "account": "100000104",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000105,
+                "customer_id": "106",
+                "name": "XXX IRAKIZA",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "100000105",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000106,
+                "customer_id": "107",
+                "name": "DJAFARI KABAYIZA",
+                "email": "kabayizadjafary@gmail.com",
+                "phone": "2.50785e+011",
+                "account": "100000106",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000107,
+                "customer_id": "108",
+                "name": "MADELEINE UWAMUGIRA",
+                "email": "maduwam@yahoo.fr",
+                "phone": "3.24793e+010",
+                "account": "100000107",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000108,
+                "customer_id": "109",
+                "name": "AIME DIEU MAOMBI",
+                "email": "",
+                "phone": "2.5079e+011",
+                "account": "100000108",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000109,
+                "customer_id": "110",
+                "name": "JOSEPH TURIKUMANA",
+                "email": "",
+                "phone": "2.50791e+011",
+                "account": "100000109",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000110,
+                "customer_id": "111",
+                "name": "PATRICK TWAGIRAYEZU",
+                "email": "",
+                "phone": "2.5079e+011",
+                "account": "100000110",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000111,
+                "customer_id": "112",
+                "name": "MARIE GORETTE INGENERA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000111",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000112,
+                "customer_id": "113",
+                "name": "ISABELLA IKIMPAYE",
+                "email": "",
+                "phone": "",
+                "account": "100000112",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000113,
+                "customer_id": "114",
+                "name": "STEVEN KAGERUKA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000113",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000114,
+                "customer_id": "115",
+                "name": "GLORIA KAYITESI",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000114",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000115,
+                "customer_id": "116",
+                "name": "AKARABO AIMEE AMIELLA",
+                "email": "zizoukist@gmail.com",
+                "phone": "2.50788e+011",
+                "account": "100000115",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000116,
+                "customer_id": "117",
+                "name": "MARIE GORETHE MUKANTWARI",
+                "email": "",
+                "phone": "",
+                "account": "100000116",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000117,
+                "customer_id": "118",
+                "name": "JEAN DE DIEU MBARUSHIMANA",
+                "email": "",
+                "phone": "2.50784e+011",
+                "account": "100000117",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000120,
+                "customer_id": "119",
+                "name": "GASPARD TUYISENGE",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000120",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000121,
+                "customer_id": "120",
+                "name": "LAMBERT MUSONI",
+                "email": "musonilambert@outlook.com",
+                "phone": "2.50789e+011",
+                "account": "100000121",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000122,
+                "customer_id": "121",
+                "name": "CLEMANCE IRAKOZE",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000122",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000123,
+                "customer_id": "122",
+                "name": "IMMACULE NYIRAHAKIZIMANA",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000123",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000124,
+                "customer_id": "123",
+                "name": "ADELINE TUYIZERE",
+                "email": "",
+                "phone": "2.50788e+011",
+                "account": "100000124",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000125,
+                "customer_id": "124",
+                "name": "ALINE NZAMUKOSHA",
+                "email": "",
+                "phone": "2.50794e+011",
+                "account": "100000125",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000126,
+                "customer_id": "125",
+                "name": "ZACHEE NTAKIRUTIMANA",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "100000126",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000127,
+                "customer_id": "126",
+                "name": "UWAMAHORO MEDIATRICE MWANGANGE",
+                "email": "mwangemedia@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "100000127",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000128,
+                "customer_id": "127",
+                "name": "ALICE UMUTONI",
+                "email": "",
+                "phone": "2.50794e+011",
+                "account": "100000128",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000129,
+                "customer_id": "128",
+                "name": "FORTUNE UWAMAHORO",
+                "email": "",
+                "phone": "",
+                "account": "100000129",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000130,
+                "customer_id": "129",
+                "name": "ANGE BENITHA UMUGANWA",
+                "email": "umuganwaangebenitha@gmail.com",
+                "phone": "2.50781e+011",
+                "account": "100000130",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000131,
+                "customer_id": "130",
+                "name": "PRINCE CHRISTIAN MUHIRE",
+                "email": "",
+                "phone": "",
+                "account": "100000131",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000132,
+                "customer_id": "131",
+                "name": "ISSA TUYISENGE",
+                "email": "",
+                "phone": "2.50788e+011",
+                "account": "100000132",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000133,
+                "customer_id": "132",
+                "name": "NADINA DUKUNDIMANA",
+                "email": "dukundimananadine64@gmail.com",
+                "phone": "2.5079e+011",
+                "account": "100000133",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000134,
+                "customer_id": "133",
+                "name": "JEAN MARIE NDARIHORANYE",
+                "email": "ndarijm@gmail.com",
+                "phone": "2.50788e+011",
+                "account": "100000134",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000135,
+                "customer_id": "134",
+                "name": "VALENTINE MUKESHIMANA",
+                "email": "",
+                "phone": "2.50794e+011",
+                "account": "100000135",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000136,
+                "customer_id": "135",
+                "name": "ERIC NSHIMIYIMANA",
+                "email": "ericbayg@gmail.com",
+                "phone": "2.50782e+011",
+                "account": "100000136",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000137,
+                "customer_id": "136",
+                "name": "MARIE NYIRABIZIMANA",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000137",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000138,
+                "customer_id": "137",
+                "name": "TANGUY CHARLES NTABANA",
+                "email": "charlestanguyntabana@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "100000138",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000139,
+                "customer_id": "138",
+                "name": "DUNIA DAVID NIYONKURU",
+                "email": "",
+                "phone": "",
+                "account": "100000139",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000140,
+                "customer_id": "139",
+                "name": "JEAN MARIE VIANNEY NDEMERE",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000140",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000141,
+                "customer_id": "140",
+                "name": "DESIRE NYANDWI",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000141",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000142,
+                "customer_id": "141",
+                "name": "ATHANASE MBARUBUCYEYE",
+                "email": "athanasembarubucyeye6@gmail.com",
+                "phone": "2.50787e+011",
+                "account": "100000142",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000143,
+                "customer_id": "142",
+                "name": "JUSTINE MUKUNDENTE",
+                "email": "",
+                "phone": "",
+                "account": "100000143",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000144,
+                "customer_id": "143",
+                "name": "NGABONZIZA ARNOD DUKUZE",
+                "email": "",
+                "phone": "2.50792e+011",
+                "account": "100000144",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000146,
+                "customer_id": "144",
+                "name": "JOYEUSE ISHIMWE",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000146",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000147,
+                "customer_id": "145",
+                "name": "ALPHONSE ALPHONSE",
+                "email": "nalphonse430@gmail.com",
+                "phone": "2.50787e+011",
+                "account": "100000147",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000148,
+                "customer_id": "146",
+                "name": "VNUSTE NZEYIMANA",
+                "email": "",
+                "phone": "2.50791e+011",
+                "account": "100000148",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000149,
+                "customer_id": "147",
+                "name": "CLEMENTINE BIMENYIMANA",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000149",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000150,
+                "customer_id": "148",
+                "name": "GEMIMA NIYIZUKURI",
+                "email": "",
+                "phone": "2.50786e+011",
+                "account": "100000150",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000151,
+                "customer_id": "149",
+                "name": "ISHEMA GISELE DUKUZE",
+                "email": "",
+                "phone": "2.50781e+011",
+                "account": "100000151",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000152,
+                "customer_id": "150",
+                "name": "DANNY NGALULA",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "100000152",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000153,
+                "customer_id": "151",
+                "name": "ROBERT HAKIZIMANA",
+                "email": "",
+                "phone": "2.5078e+011",
+                "account": "100000153",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000154,
+                "customer_id": "152",
+                "name": "SAIDI BICAMUMPAKA",
+                "email": "",
+                "phone": "",
+                "account": "100000154",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000155,
+                "customer_id": "153",
+                "name": "EMMANUEL DUSHIMIRE",
+                "email": "dushimire21@gmail.com",
+                "phone": "1.5147e+010",
+                "account": "100000155",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000156,
+                "customer_id": "154",
+                "name": "DIDIER TUZA ISHIMWE",
+                "email": "tuzadidier93@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "100000156",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000157,
+                "customer_id": "155",
+                "name": "EMMANUEL KAGERUKA",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000157",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000158,
+                "customer_id": "156",
+                "name": "EGIDE MUTANGANA",
+                "email": "",
+                "phone": "",
+                "account": "100000158",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000159,
+                "customer_id": "157",
+                "name": "JANVIER MUSONI",
+                "email": "janvier.musoni@diageo.com",
+                "phone": "2.50788e+011",
+                "account": "100000159",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000160,
+                "customer_id": "158",
+                "name": "DIEUDONNE KABUTURA",
+                "email": "",
+                "phone": "2.50787e+011",
+                "account": "100000160",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000161,
+                "customer_id": "159",
+                "name": "OLIVIER NIYITEGEKA",
+                "email": "okniyitegeka@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "100000161",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000162,
+                "customer_id": "160",
+                "name": "SCOVIA MUSHIMIYIMANA",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000162",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000163,
+                "customer_id": "161",
+                "name": "ISHIMWE ELISA ISHIMWE",
+                "email": "niyodusengaelissa6@gmail.com",
+                "phone": "2.50794e+011",
+                "account": "100000163",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000164,
+                "customer_id": "162",
+                "name": "LOUISE MUKANIYIRORA",
+                "email": "",
+                "phone": "2.5079e+011",
+                "account": "100000164",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000165,
+                "customer_id": "163",
+                "name": "ISHIMWE ELISA NIYODUSENGA",
+                "email": "niyodusengaelissa6@gmail.com",
+                "phone": "2.50794e+011",
+                "account": "100000165",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000166,
+                "customer_id": "164",
+                "name": "ISIMBI ORNELLA RUSIZANA",
+                "email": "",
+                "phone": "",
+                "account": "100000166",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000167,
+                "customer_id": "165",
+                "name": "THEOPISTE HARERIMANA",
+                "email": "",
+                "phone": "",
+                "account": "100000167",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000168,
+                "customer_id": "166",
+                "name": "CHANTAL NYIRAKOMINI",
+                "email": "",
+                "phone": "2.50791e+011",
+                "account": "100000168",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000170,
+                "customer_id": "167",
+                "name": "JACQUELYNE ZANINKA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000170",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000171,
+                "customer_id": "168",
+                "name": "JEAN BAPTISTE NSHIMIYIMANA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000171",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000172,
+                "customer_id": "169",
+                "name": "ADOLPHE TUYAMBAZE",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000172",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000173,
+                "customer_id": "170",
+                "name": "AURORE MUTEGARUGORI",
+                "email": "auroremutegarugori@gmail.com",
+                "phone": "2.5079e+011",
+                "account": "100000173",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000174,
+                "customer_id": "171",
+                "name": "JEAN CLAUDE NIZEYIMANA",
+                "email": "",
+                "phone": "2.50784e+011",
+                "account": "100000174",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000175,
+                "customer_id": "172",
+                "name": "CHRISTELLA NDAGIJIMANA",
+                "email": "",
+                "phone": "2.50786e+011",
+                "account": "100000175",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000176,
+                "customer_id": "173",
+                "name": "EMMANUEL NSANZIMANA",
+                "email": "",
+                "phone": "",
+                "account": "100000176",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000177,
+                "customer_id": "174",
+                "name": "OLIVIER BUSASA",
+                "email": "",
+                "phone": "2.50793e+011",
+                "account": "100000177",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000178,
+                "customer_id": "175",
+                "name": "LAURENCE UWIMPUWE",
+                "email": "",
+                "phone": "",
+                "account": "100000178",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000179,
+                "customer_id": "176",
+                "name": "LILIANE NDATUMUKIZA",
+                "email": "ndatumukizaliliane@gmail.com",
+                "phone": "2.50786e+011",
+                "account": "100000179",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000181,
+                "customer_id": "177",
+                "name": "MARIE GAUDENCE MUKAMUSANA",
+                "email": "",
+                "phone": "2.50784e+011",
+                "account": "100000181",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000182,
+                "customer_id": "178",
+                "name": "HARSHWAL NAVIN HARIKISHAN",
+                "email": "",
+                "phone": "2.50794e+011",
+                "account": "100000182",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000183,
+                "customer_id": "179",
+                "name": "JEROME IRANKUNDA",
+                "email": "",
+                "phone": "2.50788e+011",
+                "account": "100000183",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000184,
+                "customer_id": "180",
+                "name": "LAURENT KAMANA",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "100000184",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000185,
+                "customer_id": "181",
+                "name": "FABIEN RWASA",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000185",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000186,
+                "customer_id": "182",
+                "name": "DAVID MUNYARUBUGA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000186",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000187,
+                "customer_id": "183",
+                "name": "PIERRE NGENDAHIMANA",
+                "email": "",
+                "phone": "2.50785e+011",
+                "account": "100000187",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000190,
+                "customer_id": "184",
+                "name": "JEANETTE TUYISHIMIRE",
+                "email": "",
+                "phone": "2.50782e+011",
+                "account": "100000190",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000191,
+                "customer_id": "185",
+                "name": "FRISON NTEZIMANA",
+                "email": "",
+                "phone": "2.50739e+011",
+                "account": "100000191",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000192,
+                "customer_id": "186",
+                "name": "ERIC NIYOYAVUZE",
+                "email": "",
+                "phone": "2.5078e+011",
+                "account": "100000192",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000193,
+                "customer_id": "187",
+                "name": "ALPHONSE SEKIDEDELI",
+                "email": "",
+                "phone": "2.50788e+011",
+                "account": "100000193",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000194,
+                "customer_id": "188",
+                "name": "AMINA DUSINGIZIMANA",
+                "email": "",
+                "phone": "2.50793e+011",
+                "account": "100000194",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000195,
+                "customer_id": "189",
+                "name": "CLEMENCE MUKESHIMANA",
+                "email": "",
+                "phone": "2.50789e+011",
+                "account": "100000195",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000196,
+                "customer_id": "190",
+                "name": "EMMANUEL NSHIMIYIMANA",
+                "email": "",
+                "phone": "2.50794e+011",
+                "account": "100000196",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000198,
+                "customer_id": "191",
+                "name": "LILIANE MUNYANA",
+                "email": "",
+                "phone": "2.50781e+011",
+                "account": "100000198",
+                "status": "Not Yet"
+            },
+            {
+                "id": 1000002,
+                "customer_id": "192",
+                "name": "EUGENE NYAMASWA",
+                "email": "nyamaswaeugene@yahoo.fr",
+                "phone": "2.50789e+011",
+                "account": "1000002",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000265,
+                "customer_id": "193",
+                "name": "CLAUDETTE DUSHIMIMANA",
+                "email": "",
+                "phone": "2.50798e+011",
+                "account": "100000265",
+                "status": "Not Yet"
+            },
+            {
+                "id": 1000003,
+                "customer_id": "194",
+                "name": "FELICITE AYINKAMIYE",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "1000003",
+                "status": "Not Yet"
+            },
+            {
+                "id": 1000004,
+                "customer_id": "195",
+                "name": "MUKAKIMENYI EPIPHANIE",
+                "email": "emukakimenyi@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "1000004",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000463,
+                "customer_id": "196",
+                "name": "FREDERIC DUSENGIMANA",
+                "email": "",
+                "phone": "2.50783e+011",
+                "account": "100000463",
+                "status": "Not Yet"
+            },
+            {
+                "id": 1000005,
+                "customer_id": "197",
+                "name": "NIYIBIGIRA SIMEON",
+                "email": "",
+                "phone": "2.50788e+011",
+                "account": "1000005",
+                "status": "Not Yet"
+            },
+            {
+                "id": 1000006,
+                "customer_id": "198",
+                "name": "VENUSTE HAKIZIMANA",
+                "email": "venustehakizimana2@gmail.com",
+                "phone": "2.50789e+011",
+                "account": "1000006",
+                "status": "Not Yet"
+            },
+            {
+                "id": 100000614,
+                "customer_id": "199",
+                "name": "REBECCA NYIRAMAHIRWE",
+                "email": "",
+                "phone": "2.50784e+011",
+                "account": "100000614",
+                "status": "Not Yet"
+            }
+        ],
         "failed_emails": [],
         "dashboard_stats": {
-            "remaining": 0,
+            "remaining": 100,
             "sent": 0,
             "failed": 0
         }
