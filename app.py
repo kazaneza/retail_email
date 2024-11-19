@@ -9,9 +9,10 @@ from blueprints.failed_emails import failed_emails_bp
 from models import db, Customer
 import json
 import os
+from sqlalchemy import func
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure key
+app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Use environment variable for security
 
 # Load database configurations from config.json
 CONFIG_FILE = 'config.json'
@@ -46,25 +47,25 @@ app.register_blueprint(failed_emails_bp, url_prefix='/failed_emails')
 # Define the root route
 @app.route('/')
 def home():
-    # Redirect to the list_configurations endpoint
-    return redirect(url_for('configurations.list_configurations'))
+    # Redirect to the dashboard
+    return redirect(url_for('dashboard'))
 
 # Define the dashboard route
 @app.route('/dashboard')
 def dashboard():
-    # Read configuration data
+    # Calculate statistics directly from the database
+    remaining = Customer.query.filter_by(status=1).count()
+    sent = Customer.query.filter_by(status=2).count()
+    failed = Customer.query.filter_by(status=3).count()
+    
+    # Email settings can be fetched from config.json or a separate model/table
     def read_config_file():
         if not os.path.exists(CONFIG_FILE) or os.path.getsize(CONFIG_FILE) == 0:
             # Initialize config.json with default data if it doesn't exist or is empty
             with open(CONFIG_FILE, 'w') as f:
                 json.dump({
                     "configurations": [],
-                    "email_settings": {"paused": False, "batch_size": 50},
-                    "sample_data": {
-                        "customers": [],
-                        "failed_emails": [],
-                        "dashboard_stats": {"remaining": 0, "sent": 0, "failed": 0}
-                    }
+                    "email_settings": {"paused": False, "batch_size": 50}
                 }, f, indent=4)
         with open(CONFIG_FILE, 'r') as f:
             try:
@@ -73,27 +74,21 @@ def dashboard():
                 # If JSON is invalid, re-initialize with default data
                 data = {
                     "configurations": [],
-                    "email_settings": {"paused": False, "batch_size": 50},
-                    "sample_data": {
-                        "customers": [],
-                        "failed_emails": [],
-                        "dashboard_stats": {"remaining": 0, "sent": 0, "failed": 0}
-                    }
+                    "email_settings": {"paused": False, "batch_size": 50}
                 }
                 with open(CONFIG_FILE, 'w') as f:
                     json.dump(data, f, indent=4)
         return data
 
     data = read_config_file()
-    dashboard_stats = data.get('sample_data', {}).get('dashboard_stats', {})
     email_settings = data.get('email_settings', {})
     paused = email_settings.get('paused', False)
     batch_size = email_settings.get('batch_size', 50)
 
     return render_template('dashboard.html',
-                           remaining=dashboard_stats.get('remaining', 0),
-                           sent=dashboard_stats.get('sent', 0),
-                           failed=dashboard_stats.get('failed', 0),
+                           remaining=remaining,
+                           sent=sent,
+                           failed=failed,
                            paused=paused,
                            batch_size=batch_size)
 

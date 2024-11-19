@@ -14,14 +14,6 @@
     "email_settings": {
         "paused": false,
         "batch_size": 50
-    },
-    "sample_data": {
-        "customers": [],
-        "failed_emails": [],
-        "dashboard_stats": {
-            "remaining": 0,
-            "sent": 0,
-            "failed": 0
-        }
     }
+    
 }
