@@ -97,7 +97,7 @@ def main():
         logger.info(f"Found {len(customers)} customers to process.")
 
         for customer in customers:
-            account = customer.account
+            account = customer.recid
             recipient_email = customer.email_d_1
 
             if not recipient_email:
@@ -113,7 +113,7 @@ def main():
 
             # Define PDF path based on naming convention
             pdf_filename = f"Bank_Statement_{account}_{start_date}_to_{end_date}.pdf"
-            pdf_path = os.path.join(os.getcwd(),'statement', pdf_filename)  # Assumes PDF is generated in the current directory
+            pdf_path = os.path.join(os.getcwd(), pdf_filename)  # Assumes PDF is generated in the current directory
 
             if not os.path.exists(pdf_path):
                 logger.error(f"PDF file {pdf_path} does not exist.")
@@ -122,7 +122,7 @@ def main():
 
             # Send Email
             subject = "Your Bank Statement"
-            body = "Dear Customer,\n\nPlease find attached your bank statement for the period from {} to {}.\n\nBest regards,\nYour Bank".format(start_date, end_date)
+            body = "Dear Customer,\n\nPlease find attached your bank statement for the period from {} to {}.\n\nBest regards,\nBank of Kigali".format(start_date, end_date)
             email_sent = send_email(sender_email, password, smtp_server, smtp_port, recipient_email, subject, body, pdf_path)
 
             if email_sent:

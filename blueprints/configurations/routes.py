@@ -150,20 +150,23 @@ def fetch_customers():
         for row in rows:
             customer = Customer.query.get(row[0])
             if customer:
-                # Update existing customer
+                # Update existing customer without modifying customer_id
                 customer.short_name = row[1] or ''
                 customer.sms_d_1 = row[2] or ''
                 customer.email_d_1 = row[3] or ''
-                customer.customer_id = row[4] or ''
+                # Removed: customer.customer_id = row[4] or ''
                 customer.status = 1  # Not Yet
             else:
-                # Add new customer
+                # Add new customer, assuming customer_id is auto-generated or handled appropriately
                 new_customer = Customer(
                     recid=row[0],
                     short_name=row[1] or '',
                     sms_d_1=row[2] or '',
                     email_d_1=row[3] or '',
-                    customer_id=row[4] or '',
+                    # Handle customer_id appropriately:
+                    # If auto-generated, omit it
+                    # If not, ensure the value is valid and not an identity column
+                    # customer_id=row[4] or '',
                     status=1  # Not Yet
                 )
                 db.session.add(new_customer)
