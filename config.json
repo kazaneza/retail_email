@@ -12,7 +12,7 @@
         }
     ],
     "email_settings": {
-        "paused": false,
-        "batch_size": 50
+        "paused": true,
+        "batch_size": 1
     }
 }

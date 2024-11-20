@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 # Configurations
 server = 'P-TN-STGNG-DB01\MSSQL2022' 
 database = 'RETAIL_CUSTOMERS'         
-table_name = 'customers'        
+table_name = 'RETAIL_CUSTOMERS'        
 excel_file_path = r"C:\Users\gkazeneza\Downloads\Book1.xlsx"
 
 
