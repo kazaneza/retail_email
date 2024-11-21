@@ -124,6 +124,66 @@ def draw_account_info(c, dataframe):
     except Exception as e:
         print(f"Error drawing account info: {e}")
 
+def calculate_rows_that_fit(c, data, col_widths, table_style_commands, max_width, available_height):
+    """
+    Calculate the maximum number of data rows that can fit in the available height.
+    Includes header row in the data.
+
+    Returns:
+        Total number of rows (including header row) that can fit.
+    """
+    num_rows = len(data)
+    if num_rows == 0:
+        return 0
+    # We will try to fit as many rows as possible
+    min_rows = 2  # At least header and one data row
+    max_rows = num_rows
+    result = 1  # Start with header row only
+    while min_rows <= max_rows:
+        test_rows = (min_rows + max_rows) // 2
+        test_data = data[:test_rows]
+        table = Table(test_data, colWidths=col_widths)
+        table.setStyle(TableStyle(table_style_commands))
+        table_height = table.wrapOn(c, max_width, available_height)[1]
+        if table_height <= available_height:
+            # Try to fit more rows
+            result = test_rows
+            min_rows = test_rows + 1
+        else:
+            # Try fewer rows
+            max_rows = test_rows - 1
+    return result
+
+def draw_chunk(c, y_start, data, max_width, col_widths, table_style_commands):
+    """
+    Draws a chunk of the table on the PDF.
+
+    Parameters:
+        c (canvas.Canvas): The ReportLab canvas object.
+        y_start (int): The y-coordinate to start drawing the table.
+        data (list): The list of rows to include in the table, including header row if present.
+        max_width (int): The maximum width of the table.
+        col_widths (list): List of column widths.
+        table_style_commands (list): List of table style commands.
+    """
+    table = Table(data, colWidths=col_widths)
+    table_style = TableStyle(table_style_commands.copy())
+    
+    # Background color for data rows
+    light_gray = HexColor('#F0F0F0')
+    slightly_darker_gray = HexColor('#E0E0E0')
+    
+    num_rows = len(data)
+    for index in range(1, num_rows):  # Start from 1 to skip header row
+        bg_color = light_gray if index % 2 == 1 else slightly_darker_gray
+        table_style.add('BACKGROUND', (0, index), (-1, index), bg_color)
+    
+    table.setStyle(table_style)
+    
+    # Calculate table height and draw
+    table_height = table.wrapOn(c, max_width, y_start)[1]
+    table.drawOn(c, 40, y_start - table_height)
+
 def draw_table(c, y_start, dataframe):
     """
     Draws the transactions table in the PDF.
@@ -134,6 +194,9 @@ def draw_table(c, y_start, dataframe):
         dataframe (pd.DataFrame): The DataFrame containing transaction data.
     """
     max_width = letter[0] - 60
+    bottom_margin = 50  # Adjust as needed
+    y_start_subsequent = 750  # Adjust as needed for subsequent pages
+    
     transaction_header = ['Book Date', 'Reference', 'Narration', 'Value Date', 'Credit', 'Debit', 'Balance']
     
     if not all(col in dataframe.columns for col in transaction_header):
@@ -149,44 +212,14 @@ def draw_table(c, y_start, dataframe):
     # If you also want to format 'Value Date', uncomment the following line
     # transaction_data['Value Date'] = pd.to_datetime(transaction_data['Value Date']).dt.strftime('%Y-%m-%d')
     
-    data_rows = [transaction_header] + transaction_data.values.tolist()
+    data_rows = transaction_data.values.tolist()
+    header_row = transaction_header
     
-    first_page_rows = 10
-    subsequent_page_rows = 17 
-    
-    first_chunk = data_rows[:first_page_rows + 1] 
-    remaining_data = data_rows[first_page_rows + 1:]  
-    
-    draw_chunk(c, y_start, first_chunk, max_width, True, transaction_header)
-    
-    while remaining_data:
-        c.showPage()  
-        chunk = remaining_data[:subsequent_page_rows]
-        remaining_data = remaining_data[subsequent_page_rows:]
-        
-        # New pages start drawing at y_start of 750
-        draw_chunk(c, 750, chunk, max_width, False, transaction_header)
-        draw_footer(c)
-
-
-def draw_chunk(c, y_start, chunk, max_width, include_header, header):
-    """
-    Draws a chunk of the table on the PDF.
-
-    Parameters:
-        c (canvas.Canvas): The ReportLab canvas object.
-        y_start (int): The y-coordinate to start drawing the table.
-        chunk (list): The list of rows to include in the table.
-        max_width (int): The maximum width of the table.
-        include_header (bool): Whether to include the header row styling.
-        header (list): The header row content.
-    """
-    num_columns = len(header)
-    
-    # Initial column widths: equally distributed
+    # Define col_widths and table_style_commands
+    num_columns = len(transaction_header)
     equal_column_width = max_width / num_columns
     col_widths = [equal_column_width for _ in range(num_columns)]
-
+    
     # Adjust specific columns
     col_widths[0] = 0.50 * equal_column_width  # Book Date
     col_widths[1] = 1.1 * equal_column_width   # Reference
@@ -196,6 +229,7 @@ def draw_chunk(c, y_start, chunk, max_width, include_header, header):
     col_widths[5] = 0.75 * equal_column_width  # Debit
     col_widths[6] = 0.75 * equal_column_width  # Balance
 
+    # Table style commands
     table_style_commands = [
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
@@ -204,34 +238,43 @@ def draw_chunk(c, y_start, chunk, max_width, include_header, header):
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
-        ('BOX', (0, 0), (-1, -1), 0.5, colors.white),        
+        ('BOX', (0, 0), (-1, -1), 0.5, colors.white),
     ]
-
+    
     # Header-specific styles
-    if include_header:
-        header_style_commands = [
-            ('BACKGROUND', (0, 0), (-1, 0), Color(11/255, 83/255, 157/255)),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ]
-        table_style_commands.extend(header_style_commands)
-    
-    # Background color for data rows
-    light_gray = HexColor('#F0F0F0')
-    slightly_darker_gray = HexColor('#E0E0E0') 
+    header_style_commands = [
+        ('BACKGROUND', (0, 0), (-1, 0), Color(11/255, 83/255, 157/255)),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    ]
+    table_style_with_header = table_style_commands + header_style_commands
 
-    start_index = 1 if include_header else 0
-    for index in range(len(chunk))[start_index:]:
-        bg_color = light_gray if index % 2 == 1 else slightly_darker_gray
-        table_style_commands.append(('BACKGROUND', (0, index), (-1, index), bg_color))
-
-    # Create the Table object
-    table = Table(chunk, colWidths=col_widths)
-    table.setStyle(TableStyle(table_style_commands))
+    # Calculate the number of rows that can fit on the first page
+    available_height = y_start - bottom_margin
+    # For first page, data includes header
+    data_for_page = [header_row] + data_rows
+    rows_that_fit = calculate_rows_that_fit(c, data_for_page, col_widths, table_style_with_header, max_width, available_height)
+    if rows_that_fit <= 1:
+        print("Not enough space to draw the table on the page.")
+        return
+    # rows_that_fit includes header row
+    first_chunk = data_rows[:rows_that_fit - 1]  # Exclude header row
+    remaining_data = data_rows[rows_that_fit - 1:]
+    draw_chunk(c, y_start, [header_row] + first_chunk, max_width, col_widths, table_style_with_header)
     
-    # Calculate table height and draw
-    table_height = table.wrapOn(c, max_width, y_start)[1]
-    table.drawOn(c, 40, y_start - table_height)
+    # For subsequent pages
+    while remaining_data:
+        c.showPage()
+        draw_footer(c)
+        available_height = y_start_subsequent - bottom_margin
+        data_for_page = [header_row] + remaining_data
+        rows_that_fit = calculate_rows_that_fit(c, data_for_page, col_widths, table_style_with_header, max_width, available_height)
+        if rows_that_fit <= 1:
+            print("Not enough space to draw the table on the page.")
+            return
+        chunk = remaining_data[:rows_that_fit - 1]
+        remaining_data = remaining_data[rows_that_fit - 1:]
+        draw_chunk(c, y_start_subsequent, [header_row] + chunk, max_width, col_widths, table_style_with_header)
 
 def draw_footer(c):
     """
@@ -334,7 +377,7 @@ def main():
         print("No data retrieved. PDF will not be generated.")
         return
 
-    # **Convert 'Book Date' to datetime**
+    # Convert 'Book Date' to datetime
     try:
         dataframe['Book Date'] = pd.to_datetime(dataframe['Book Date'])
     except Exception as e:
