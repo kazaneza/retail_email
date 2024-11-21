@@ -99,6 +99,7 @@ def main():
         for customer in customers:
             account = customer.recid
             recipient_email = customer.email_d_1
+            recipient_name = customer.short_name
 
             if not recipient_email:
                 logger.warning(f"No email address for customer {customer.recid}. Skipping.")
@@ -122,7 +123,7 @@ def main():
 
             # Send Email
             subject = "Your Bank Statement"
-            body = "Dear Customer,\n\nPlease find attached your bank statement for the period from {} to {}.\n\nBest regards,\nBank of Kigali".format(start_date, end_date)
+            body = "Dear {},\n\nPlease find attached your bank statement for the period from {} to {}.\n\nBest regards,\nBank of Kigali".format(recipient_name, start_date, end_date)
             email_sent = send_email(sender_email, password, smtp_server, smtp_port, recipient_email, subject, body, pdf_path)
 
             if email_sent:
