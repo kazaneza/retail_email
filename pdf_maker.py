@@ -278,9 +278,9 @@ def main():
     parser.add_argument('--start', required=True, help='Start Date (YYYY-MM-DD)')
     parser.add_argument('--end', required=True, help='End Date (YYYY-MM-DD)')
     parser.add_argument('--logo', default="download (1).png", help='Path to the logo image')
-    
+
     args = parser.parse_args()
-    
+
     account_number = args.account
     start_date = args.start
     end_date = args.end
@@ -306,7 +306,7 @@ def main():
         c.drawRightString(header_x_position, 711, "(+350) 252 593 100")
         c.drawRightString(header_x_position, 700, "@Bank of Kigali")
         c.drawRightString(header_x_position, 688, "+250 788 319 112")
-        
+
         logo_x_position = 30
         logo_y_position = 700  
         logo_width = 220  
@@ -315,7 +315,7 @@ def main():
             c.drawImage(logo_path, logo_x_position, logo_y_position, width=logo_width, height=logo_height)
         except Exception as e:
             print(f"Error loading logo image: {e}")
-    
+
     draw_header = draw_header_updated  # Override the draw_header function
 
     # Fetch data
@@ -324,14 +324,22 @@ def main():
     if dataframe.empty:
         print("No data retrieved. PDF will not be generated.")
         return
-    
+
+    # **Convert 'Book Date' to datetime**
+    try:
+        dataframe['Book Date'] = pd.to_datetime(dataframe['Book Date'])
+    except Exception as e:
+        print(f"Error converting 'Book Date' to datetime: {e}")
+        return
+
     # Define PDF filename
     filename = f"Bank_Statement_{acc_num}_{start}_to_{end}.pdf"
-    
+
     # Create PDF
     create_bank_statement(filename, dataframe, acc_num, start, end)
-    
+
     print(f"Bank statement has been saved as {filename}")
+
 
 if __name__ == "__main__":
     main()
