@@ -140,7 +140,15 @@ def draw_table(c, y_start, dataframe):
         print("Dataframe does not contain all required columns for the table.")
         return
     
-    transaction_data = dataframe[transaction_header]
+    # Make a copy to avoid modifying the original dataframe
+    transaction_data = dataframe[transaction_header].copy()
+    
+    # Format the 'Book Date' column to display only the date part
+    transaction_data['Book Date'] = pd.to_datetime(transaction_data['Book Date']).dt.strftime('%Y-%m-%d')
+    
+    # If you also want to format 'Value Date', uncomment the following line
+    # transaction_data['Value Date'] = pd.to_datetime(transaction_data['Value Date']).dt.strftime('%Y-%m-%d')
+    
     data_rows = [transaction_header] + transaction_data.values.tolist()
     
     first_page_rows = 10
@@ -159,6 +167,7 @@ def draw_table(c, y_start, dataframe):
         # New pages start drawing at y_start of 750
         draw_chunk(c, 750, chunk, max_width, False, transaction_header)
         draw_footer(c)
+
 
 def draw_chunk(c, y_start, chunk, max_width, include_header, header):
     """
