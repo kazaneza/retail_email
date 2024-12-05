@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Bank Statement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff; 
+            padding: 20px; 
+            border-radius: 5px;
+            max-width: 600px; 
+            margin: auto;
+        }
+        h2 {
+            color: #0c5460;
+        }
+        p {
+            font-size: 14px; 
+            line-height: 1.5; 
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Dear {{ short_name }},</p>
+        <p>Please find attached your bank statement for the requested period.</p>
+        <p>Best regards,<br>
+        Bank of Kigali</p>
+    </div>
+</body>
+</html>

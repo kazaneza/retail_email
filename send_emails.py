@@ -10,6 +10,10 @@ from app import app
 import json
 import logging
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 # Configure logging
@@ -88,8 +92,8 @@ def main():
         return
 
     # Define the date range for the statements
-    start_date = '2024-01-01'
-    end_date = '2024-11-20'
+    start_date = '2024-11-01'
+    end_date = '2024-11-30'
 
     with app.app_context():
         # Fetch customers with status=1 (Not Yet)
